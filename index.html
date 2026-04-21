@@ -88,7 +88,7 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   <button class="active" onclick="show('dashboard',this)">Panel</button>
   <button onclick="show('productos',this)">Productos</button>
   <button onclick="show('venta',this)">Vender</button>
-  <button onclick="show('clientes',this)">Clientes</button>
+  <button onclick="show('clientes',this)">Clientes</button>Ï
   <button onclick="show('compras',this)">Compras</button>
 </div>
 
@@ -321,8 +321,27 @@ function renderDash(){
   document.getElementById('alertas').innerHTML=productos.filter(function(p){return p.stock<=5;}).map(function(p){return '<div class="al '+(p.stock===0?'danger':'warn')+'">'+(p.stock===0?'Sin stock':'Stock bajo')+': '+p.nombre+' - '+p.stock+' uds</div>';}).join('');
 }
 
-function fotoHTML(p){
-  if(p.foto)return '<img src="'+p.foto+'" onerror="this.parentElement.textContent=\'🍟\'">';
+function fotoHTML(p) {
+  // Verificamos si el producto tiene algo en el campo 'foto'
+  if (p.foto && p.foto.trim() !== "") {
+    let url = p.foto;
+
+    // Si el enlace es de Google Drive, hacemos la transformación mágica
+    if (url.includes("drive.google.com")) {
+      // Extraemos el ID largo del enlace (el código entre /d/ y /view)
+      const partes = url.split('/d/');
+      if (partes.length > 1) {
+        const id = partes[1].split('/')[0];
+        // Creamos el enlace de visualización directa
+        url = `https://drive.google.com/uc?export=view&id=${id}`;
+      }
+    }
+    
+    // Retornamos la etiqueta de imagen con un 'onerror' por si el link se rompe
+    return `<img src="${url}" onerror="this.parentElement.innerHTML='🍟'">`;
+  }
+  
+  // Si no hay foto, ponemos el emoji que ya tenías
   return '<span style="font-size:28px">🍟</span>';
 }
 
