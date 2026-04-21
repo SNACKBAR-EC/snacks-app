@@ -24,7 +24,6 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
 .badge{font-size:11px;padding:3px 8px;border-radius:20px;font-weight:500}
 .badge.pagado{background:#EAF3DE;color:#27500A}
 .badge.fiado{background:#FAECE7;color:#712B13}
-.badge.transf{background:#E6F1FB;color:#0C447C}
 .badge.bajo{background:#FCEBEB;color:#791F1F}
 .badge.ok{background:#EAF3DE;color:#27500A}
 .badge.medio{background:#FAEEDA;color:#633806}
@@ -33,7 +32,7 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
 .form-group input,.form-group select{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:8px;font-size:14px;background:#fff;color:#222;outline:none}
 .form-group input:focus,.form-group select:focus{border-color:#1D9E75}
 .btn-main{width:100%;padding:13px;background:#1D9E75;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:4px}
-.btn-main:active{opacity:.85;transform:scale(.99)}
+.btn-main:active{opacity:.85}
 .btn-sec{padding:5px 10px;background:transparent;border:1px solid #ddd;border-radius:8px;font-size:11px;color:#666;cursor:pointer}
 .bar-wrap{margin-top:4px}
 .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -52,7 +51,7 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
 .chip.sel{background:#1D9E75;color:#fff;border-color:#1D9E75}
 .cart-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0f0eb;font-size:13px}
 .qty-ctrl{display:flex;align-items:center;gap:10px}
-.qty-btn{width:28px;height:28px;border-radius:50%;border:1px solid #ddd;background:#f5f5f0;cursor:pointer;font-size:16px;color:#222;display:flex;align-items:center;justify-content:center;line-height:1}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:1px solid #ddd;background:#f5f5f0;cursor:pointer;font-size:16px;color:#222;display:flex;align-items:center;justify-content:center}
 .total-bar{background:#EAF3DE;border-radius:10px;padding:13px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
 .pago-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
 .pago-btn{padding:10px 4px;border-radius:8px;border:1px solid #ddd;background:#f5f5f0;cursor:pointer;font-size:12px;color:#666;text-align:center;font-weight:500;transition:all .2s}
@@ -63,19 +62,19 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
 .deudor-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .deudor-ventas{margin-top:8px;border-top:1px solid #f0f0eb;padding-top:8px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.loading{text-align:center;padding:20px;color:#888;font-size:13px}
 </style>
 </head>
 <body>
 
 <div class="nav">
-  <button class="active" onclick="show('dashboard',this)">&#9632; Panel</button>
+  <button class="active" onclick="show('dashboard',this)">Panel</button>
   <button onclick="show('venta',this)">Vender</button>
   <button onclick="show('inventario',this)">Stock</button>
   <button onclick="show('clientes',this)">Clientes</button>
   <button onclick="show('compras',this)">Compras</button>
 </div>
 
-<!-- DASHBOARD -->
 <div id="screen-dashboard" class="screen active">
   <div class="pill-row">
     <div class="pill active" onclick="filtrarPeriodo('hoy',this)">Hoy</div>
@@ -85,7 +84,7 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   <div class="stat-grid">
     <div class="stat"><div class="lbl">Ventas totales</div><div class="val" id="d-ventas">$0.00</div><div class="sub" style="color:#27500A" id="d-ordenes">0 ordenes</div></div>
     <div class="stat"><div class="lbl">Utilidad neta</div><div class="val" id="d-utilidad" style="color:#1D9E75">$0.00</div><div class="sub" id="d-margen" style="color:#27500A">0% margen</div></div>
-    <div class="stat"><div class="lbl">Inversion (costo)</div><div class="val" id="d-inversion">$0.00</div><div class="sub" style="color:#888">en productos vendidos</div></div>
+    <div class="stat"><div class="lbl">Inversion</div><div class="val" id="d-inversion">$0.00</div><div class="sub" style="color:#888">costo vendido</div></div>
     <div class="stat"><div class="lbl">Por cobrar</div><div class="val" id="d-fiados" style="color:#D85A30">$0.00</div><div class="sub" id="d-nfiados" style="color:#712B13">0 clientes</div></div>
   </div>
   <div class="card">
@@ -99,7 +98,6 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   <div id="alertas-stock"></div>
 </div>
 
-<!-- VENDER -->
 <div id="screen-venta" class="screen">
   <div class="card">
     <div class="section-title">Cliente</div>
@@ -127,11 +125,10 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   </div>
 </div>
 
-<!-- INVENTARIO -->
 <div id="screen-inventario" class="screen">
   <div class="card">
     <div class="section-title">Agregar producto</div>
-    <div class="form-group"><label>Nombre del producto</label><input id="i-nombre" placeholder="Ej: Papas fritas grande"/></div>
+    <div class="form-group"><label>Nombre del producto</label><input id="i-nombre" placeholder="Ej: Papas fritas"/></div>
     <div class="two-col">
       <div class="form-group"><label>Precio costo $</label><input id="i-costo" type="number" step="0.01" placeholder="0.50"/></div>
       <div class="form-group"><label>Precio venta $</label><input id="i-venta" type="number" step="0.01" placeholder="1.00"/></div>
@@ -144,11 +141,10 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   </div>
   <div class="card">
     <div class="section-title">Stock actual</div>
-    <div id="lista-inventario"></div>
+    <div id="lista-inventario"><div class="loading">Cargando...</div></div>
   </div>
 </div>
 
-<!-- CLIENTES -->
 <div id="screen-clientes" class="screen">
   <div class="card">
     <div class="section-title">Nuevo cliente</div>
@@ -158,11 +154,10 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   </div>
   <div class="card">
     <div class="section-title">Mis clientes</div>
-    <div id="lista-clientes"></div>
+    <div id="lista-clientes"><div class="loading">Cargando...</div></div>
   </div>
 </div>
 
-<!-- COMPRAS -->
 <div id="screen-compras" class="screen">
   <div class="card">
     <div class="section-title">Registrar entrada de mercaderia</div>
@@ -176,55 +171,54 @@ body{background:#f5f5f0;min-height:100vh;padding-bottom:80px}
   </div>
   <div class="card">
     <div class="section-title">Historial de compras</div>
-    <div id="lista-compras"></div>
+    <div id="lista-compras"><div class="loading">Cargando...</div></div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-var productos=[
-  {id:1,nombre:'Papas fritas',costo:0.50,venta:1.00,stock:30,caducidad:'2026-12-31'},
-  {id:2,nombre:'Chitos',costo:0.30,venta:0.75,stock:45,caducidad:'2026-10-15'},
-  {id:3,nombre:'Galletas choco',costo:0.40,venta:0.80,stock:3,caducidad:'2026-08-01'},
-  {id:4,nombre:'Chicles',costo:0.10,venta:0.25,stock:60,caducidad:'2027-01-20'}
-];
-var clientes=[
-  {id:1,nombre:'Ana Gomez',tel:'0991234567'},
-  {id:2,nombre:'Pedro Mora',tel:'0987654321'},
-  {id:3,nombre:'Lucia Vega',tel:'0993456789'}
-];
-var ventas=[
-  {id:1,fecha:'2026-04-20',clienteId:1,items:[{prodId:1,cant:3,precio:1.00},{prodId:2,cant:2,precio:0.75}],total:4.50,costo:2.10,pago:'Pagado'},
-  {id:2,fecha:'2026-04-18',clienteId:2,items:[{prodId:3,cant:1,precio:0.80},{prodId:4,cant:4,precio:0.25}],total:1.80,costo:0.80,pago:'Fiado'},
-  {id:3,fecha:'2026-04-15',clienteId:3,items:[{prodId:1,cant:2,precio:1.00}],total:2.00,costo:1.00,pago:'Fiado'},
-  {id:4,fecha:'2026-04-19',clienteId:2,items:[{prodId:1,cant:1,precio:1.00},{prodId:4,cant:2,precio:0.25}],total:1.50,costo:0.70,pago:'Fiado'}
-];
-var compras=[
-  {id:1,fecha:'2026-04-18',prodId:1,cant:50,costo:0.50},
-  {id:2,fecha:'2026-04-18',prodId:2,cant:80,costo:0.30}
-];
-var carrito={};
-var pagoSel='Pagado';
-var periodoSel='hoy';
-var nextProdId=5,nextClienteId=4,nextVentaId=5,nextCompraId=3;
+const SUPABASE_URL='https://lyvfgzvnyidvdxqncebw.supabase.co';
+const SUPABASE_KEY='PEGA_AQUI_TU_CLAVE_ANON_NUEVA';
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-function show(s,btn){
-  document.querySelectorAll('.screen').forEach(function(e){e.classList.remove('active');});
-  document.querySelectorAll('.nav button').forEach(function(e){e.classList.remove('active');});
-  document.getElementById('screen-'+s).classList.add('active');
-  btn.classList.add('active');
-  if(s==='dashboard')renderDashboard();
-  if(s==='venta')renderVenta();
-  if(s==='inventario')renderInventario();
-  if(s==='clientes')renderClientes();
-  if(s==='compras')renderCompras();
+var productos=[],clientes=[],ventas=[],compras=[],carrito={},pagoSel='Pagado',periodoSel='hoy';
+
+async function iniciar(){
+  await Promise.all([cargarProductos(),cargarClientes(),cargarVentas(),cargarCompras()]);
+  renderDashboard();
+}
+
+async function cargarProductos(){
+  var r=await sb.from('productos').select('*').order('nombre');
+  if(r.data)productos=r.data;
+  renderInventario();
+}
+
+async function cargarClientes(){
+  var r=await sb.from('clientes').select('*').order('nombre');
+  if(r.data)clientes=r.data;
+}
+
+async function cargarVentas(){
+  var r=await sb.from('ventas').select('*, detalle_venta(*)').order('created_at',{ascending:false});
+  if(r.data){
+    ventas=r.data.map(function(v){
+      return{id:v.id,fecha:v.fecha,clienteId:v.cliente_id,total:v.total,costo:v.costo_total,pago:v.pago,
+        items:(v.detalle_venta||[]).map(function(d){return{prodId:d.producto_id,cant:d.cantidad,precio:d.precio_unitario};})};
+    });
+  }
+}
+
+async function cargarCompras(){
+  var r=await sb.from('compras').select('*').order('fecha',{ascending:false});
+  if(r.data)compras=r.data.map(function(c){return{id:c.id,fecha:c.fecha,prodId:c.producto_id,cant:c.cantidad,costo:c.costo};});
+  renderCompras();
 }
 
 function hoy(){return new Date().toISOString().slice(0,10);}
 
 function ventasFiltradas(){
-  var h=hoy();
-  var semana=new Date(Date.now()-7*86400000).toISOString().slice(0,10);
-  var mes=h.slice(0,7);
+  var h=hoy(),semana=new Date(Date.now()-7*86400000).toISOString().slice(0,10),mes=h.slice(0,7);
   return ventas.filter(function(v){
     if(periodoSel==='hoy')return v.fecha===h;
     if(periodoSel==='semana')return v.fecha>=semana;
@@ -249,45 +243,51 @@ function filtrarPeriodo(p,el){
   renderDashboard();
 }
 
+function show(s,btn){
+  document.querySelectorAll('.screen').forEach(function(e){e.classList.remove('active');});
+  document.querySelectorAll('.nav button').forEach(function(e){e.classList.remove('active');});
+  document.getElementById('screen-'+s).classList.add('active');
+  btn.classList.add('active');
+  if(s==='dashboard')renderDashboard();
+  if(s==='venta')renderVenta();
+  if(s==='inventario')renderInventario();
+  if(s==='clientes')renderClientes();
+  if(s==='compras')renderCompras();
+}
+
 function renderDashboard(){
   var vf=ventasFiltradas();
   var tv=vf.reduce(function(a,v){return a+v.total;},0);
   var tc=vf.reduce(function(a,v){return a+v.costo;},0);
-  var util=tv-tc;
-  var margen=tv>0?Math.round(util/tv*100):0;
+  var util=tv-tc,margen=tv>0?Math.round(util/tv*100):0;
   var deudas=deudaPorCliente();
   var totalFiado=Object.values(deudas).reduce(function(a,d){return a+d.total;},0);
-  var nFiados=Object.keys(deudas).length;
   document.getElementById('d-ventas').textContent='$'+tv.toFixed(2);
   document.getElementById('d-ordenes').textContent=vf.length+' ordenes';
   document.getElementById('d-utilidad').textContent='$'+util.toFixed(2);
   document.getElementById('d-margen').textContent=margen+'% margen';
   document.getElementById('d-inversion').textContent='$'+tc.toFixed(2);
   document.getElementById('d-fiados').textContent='$'+totalFiado.toFixed(2);
-  document.getElementById('d-nfiados').textContent=nFiados+' clientes';
+  document.getElementById('d-nfiados').textContent=Object.keys(deudas).length+' clientes';
   var conteo={};
   vf.forEach(function(v){v.items.forEach(function(it){conteo[it.prodId]=(conteo[it.prodId]||0)+it.cant;});});
   var sorted=Object.entries(conteo).sort(function(a,b){return b[1]-a[1];}).slice(0,4);
   var max=sorted.length?sorted[0][1]:1;
-  document.getElementById('top-productos').innerHTML=sorted.length?sorted.map(function(entry){
-    var p=productos.find(function(x){return x.id==entry[0];});
-    var pct=Math.round(entry[1]/max*100);
-    return '<div class="bar-row"><div class="bar-label">'+(p?p.nombre:'?')+'</div><div class="bar-bg"><div class="bar-fill" style="width:'+pct+'%"></div></div><div class="bar-val">'+entry[1]+'u</div></div>';
+  document.getElementById('top-productos').innerHTML=sorted.length?sorted.map(function(e){
+    var p=productos.find(function(x){return x.id==e[0];});
+    return '<div class="bar-row"><div class="bar-label">'+(p?p.nombre:'?')+'</div><div class="bar-bg"><div class="bar-fill" style="width:'+Math.round(e[1]/max*100)+'%"></div></div><div class="bar-val">'+e[1]+'u</div></div>';
   }).join(''):'<div style="color:#888;font-size:13px;padding:8px 0">Sin ventas en este periodo</div>';
-  var deudoresHTML=Object.entries(deudas).map(function(entry){
-    var cl=clientes.find(function(c){return c.id==entry[0];});
-    return '<div class="row"><div style="font-size:14px;font-weight:600">'+(cl?cl.nombre:'?')+'</div><span style="font-size:16px;font-weight:700;color:#D85A30">$'+entry[1].total.toFixed(2)+'</span></div>';
-  }).join('');
-  document.getElementById('d-deudores').innerHTML=deudoresHTML||'<div style="color:#27500A;font-size:13px;padding:8px 0">Nadie te debe, todo cobrado!</div>';
-  var alertas=productos.filter(function(p){return p.stock<=5;});
-  document.getElementById('alertas-stock').innerHTML=alertas.map(function(p){
+  document.getElementById('d-deudores').innerHTML=Object.entries(deudas).map(function(e){
+    var cl=clientes.find(function(c){return c.id==e[0];});
+    return '<div class="row"><div style="font-size:14px;font-weight:600">'+(cl?cl.nombre:'?')+'</div><span style="font-size:16px;font-weight:700;color:#D85A30">$'+e[1].total.toFixed(2)+'</span></div>';
+  }).join('')||'<div style="color:#27500A;font-size:13px;padding:8px 0">Nadie te debe!</div>';
+  document.getElementById('alertas-stock').innerHTML=productos.filter(function(p){return p.stock<=5;}).map(function(p){
     return '<div class="alert '+(p.stock===0?'danger':'warn')+'">'+(p.stock===0?'Sin stock':'Stock bajo')+': '+p.nombre+' - '+p.stock+' uds</div>';
   }).join('');
 }
 
 function renderVenta(){
-  var sel=document.getElementById('v-cliente');
-  sel.innerHTML='<option value="">-- Selecciona cliente --</option>'+clientes.map(function(c){return '<option value="'+c.id+'">'+c.nombre+'</option>';}).join('');
+  document.getElementById('v-cliente').innerHTML='<option value="">-- Selecciona cliente --</option>'+clientes.map(function(c){return '<option value="'+c.id+'">'+c.nombre+'</option>';}).join('');
   document.getElementById('product-chips').innerHTML=productos.map(function(p){
     return '<div class="chip'+(carrito[p.id]?' sel':'')+'" onclick="toggleCart('+p.id+')">'+p.nombre+' $'+p.venta.toFixed(2)+'</div>';
   }).join('');
@@ -301,12 +301,10 @@ function toggleCart(id){
 }
 
 function renderCarrito(){
-  var ids=Object.keys(carrito);
-  var total=0;
+  var ids=Object.keys(carrito),tot=0;
   document.getElementById('carrito').innerHTML=ids.length?ids.map(function(id){
-    var p=productos.find(function(x){return x.id==id;});
-    var item=carrito[id];
-    total+=item.cant*item.precio;
+    var p=productos.find(function(x){return x.id==id;}),item=carrito[id];
+    tot+=item.cant*item.precio;
     return '<div class="cart-item"><div><b>'+p.nombre+'</b><br><span style="color:#888;font-size:11px">$'+item.precio.toFixed(2)+' c/u</span></div><div class="qty-ctrl"><button class="qty-btn" onclick="cambiarCant('+id+',-1)">-</button><span style="font-size:15px;font-weight:600">'+item.cant+'</span><button class="qty-btn" onclick="cambiarCant('+id+',1)">+</button></div></div>';
   }).join(''):'<div style="color:#888;font-size:13px;padding:8px 0">Toca un producto para agregarlo</div>';
   var t=0;ids.forEach(function(id){var i=carrito[id];t+=i.cant*i.precio;});
@@ -327,126 +325,116 @@ function selPago(tipo){
   });
 }
 
-function registrarVenta(){
+async function registrarVenta(){
   var clienteId=parseInt(document.getElementById('v-cliente').value);
   if(!clienteId){alert('Selecciona un cliente');return;}
   var ids=Object.keys(carrito);
   if(!ids.length){alert('Agrega al menos un producto');return;}
-  var total=0,costo=0;
-  var items=ids.map(function(id){
-    var p=productos.find(function(x){return x.id==id;});
-    var item=carrito[id];
-    total+=item.cant*item.precio;
-    costo+=item.cant*p.costo;
-    p.stock-=item.cant;
-    return{prodId:parseInt(id),cant:item.cant,precio:item.precio};
+  var total=0,costo=0,items=[];
+  ids.forEach(function(id){
+    var p=productos.find(function(x){return x.id==id;}),item=carrito[id];
+    total+=item.cant*item.precio;costo+=item.cant*p.costo;
+    items.push({prodId:parseInt(id),cant:item.cant,precio:item.precio,nuevoStock:p.stock-item.cant});
   });
-  ventas.push({id:nextVentaId++,fecha:hoy(),clienteId:clienteId,items:items,total:parseFloat(total.toFixed(2)),costo:parseFloat(costo.toFixed(2)),pago:pagoSel});
-  carrito={};
-  selPago('Pagado');
-  alert('Venta registrada! Total: $'+total.toFixed(2)+' — '+pagoSel);
-  renderVenta();
+  var rv=await sb.from('ventas').insert([{fecha:hoy(),cliente_id:clienteId,total:parseFloat(total.toFixed(2)),costo_total:parseFloat(costo.toFixed(2)),pago:pagoSel}]).select();
+  if(rv.error){alert('Error: '+rv.error.message);return;}
+  var vid=rv.data[0].id;
+  await sb.from('detalle_venta').insert(items.map(function(it){return{venta_id:vid,producto_id:it.prodId,cantidad:it.cant,precio_unitario:it.precio};}));
+  for(var i=0;i<items.length;i++)await sb.from('productos').update({stock:items[i].nuevoStock}).eq('id',items[i].prodId);
+  carrito={};selPago('Pagado');
+  await Promise.all([cargarProductos(),cargarVentas()]);
+  renderDashboard();renderVenta();
+  alert('Venta registrada! Total: $'+total.toFixed(2)+' - '+pagoSel);
 }
 
 function renderInventario(){
   var sel=document.getElementById('cp-producto');
   if(sel)sel.innerHTML='<option value="">-- Elige producto --</option>'+productos.map(function(p){return '<option value="'+p.id+'">'+p.nombre+'</option>';}).join('');
-  document.getElementById('lista-inventario').innerHTML=productos.map(function(p){
+  document.getElementById('lista-inventario').innerHTML=productos.length?productos.map(function(p){
     var dias=Math.ceil((new Date(p.caducidad)-new Date())/86400000);
-    var bCad=dias<=7?'bajo':'ok';
-    var tCad=dias<=7?'Caduca en '+dias+'d':(dias<=30?'Caduca pronto':'Vigente');
-    var bStock=p.stock===0?'bajo':(p.stock<=5?'medio':'ok');
-    return '<div class="row"><div><div style="font-size:13px;font-weight:600">'+p.nombre+'</div><div style="font-size:11px;color:#888;margin-top:3px">Costo $'+p.costo.toFixed(2)+' · Venta $'+p.venta.toFixed(2)+' · Margen '+Math.round((p.venta-p.costo)/p.venta*100)+'%</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="badge '+bStock+'">'+p.stock+' uds</span><span class="badge '+bCad+'" style="font-size:10px">'+tCad+'</span></div></div>';
-  }).join('');
+    var bCad=dias<=7?'bajo':'ok',tCad=dias<=7?'Caduca en '+dias+'d':(dias<=30?'Caduca pronto':'Vigente');
+    return '<div class="row"><div><div style="font-size:13px;font-weight:600">'+p.nombre+'</div><div style="font-size:11px;color:#888;margin-top:3px">Costo $'+p.costo.toFixed(2)+' - Venta $'+p.venta.toFixed(2)+' - Margen '+Math.round((p.venta-p.costo)/p.venta*100)+'%</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><span class="badge '+(p.stock===0?'bajo':p.stock<=5?'medio':'ok')+'">'+p.stock+' uds</span><span class="badge '+bCad+'" style="font-size:10px">'+tCad+'</span></div></div>';
+  }).join(''):'<div style="color:#888;font-size:13px;padding:8px 0">Sin productos aun</div>';
 }
 
-function agregarProducto(){
+async function agregarProducto(){
   var nombre=document.getElementById('i-nombre').value.trim();
   var costo=parseFloat(document.getElementById('i-costo').value);
   var venta=parseFloat(document.getElementById('i-venta').value);
   var stock=parseInt(document.getElementById('i-stock').value)||0;
   var cad=document.getElementById('i-cad').value;
   if(!nombre||isNaN(costo)||isNaN(venta)){alert('Completa nombre, costo y precio de venta');return;}
-  productos.push({id:nextProdId++,nombre:nombre,costo:costo,venta:venta,stock:stock,caducidad:cad||'2027-12-31'});
+  var r=await sb.from('productos').insert([{nombre:nombre,costo:costo,venta:venta,stock:stock,caducidad:cad||'2027-12-31'}]);
+  if(r.error){alert('Error: '+r.error.message);return;}
   ['i-nombre','i-costo','i-venta','i-stock','i-cad'].forEach(function(id){document.getElementById(id).value='';});
-  renderInventario();
-  alert('Producto guardado!');
+  await cargarProductos();alert('Producto guardado!');
 }
 
 function renderClientes(){
   var deudas=deudaPorCliente();
-  document.getElementById('lista-clientes').innerHTML=clientes.map(function(c){
-    var d=deudas[c.id];
-    var deuda=d?d.total:0;
-    var detalle='';
+  document.getElementById('lista-clientes').innerHTML=clientes.length?clientes.map(function(c){
+    var d=deudas[c.id],deuda=d?d.total:0,detalle='';
     if(d&&d.ventas.length){
       detalle='<div class="deudor-ventas">'+d.ventas.map(function(v){
-        var prods=v.items.map(function(it){var p=productos.find(function(x){return x.id===it.prodId;});return (p?p.nombre:'?')+' x'+it.cant;}).join(', ');
+        var prods=v.items.map(function(it){var p=productos.find(function(x){return x.id===it.prodId;});return(p?p.nombre:'?')+' x'+it.cant;}).join(', ');
         return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0eb"><div style="font-size:12px;color:#888">'+v.fecha+'<br>'+prods+'</div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:600;color:#D85A30">$'+v.total.toFixed(2)+'</span><button class="btn-sec" onclick="cobrarVenta('+v.id+')">Cobrar</button></div></div>';
       }).join('')+'<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><span style="font-size:13px;color:#888;font-weight:600">Total debe</span><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px;font-weight:700;color:#D85A30">$'+deuda.toFixed(2)+'</span><button class="btn-main" style="width:auto;padding:7px 16px;font-size:12px;margin:0" onclick="cobrarTodo('+c.id+')">Cobrar todo</button></div></div></div>';
     }
-    return '<div class="deudor-card"><div class="deudor-header"><div><div style="font-size:14px;font-weight:600">'+c.nombre+'</div><div style="font-size:11px;color:#888">'+c.tel+'</div></div><span class="badge '+(deuda>0?'fiado':'pagado')+'">'+(deuda>0?'Debe $'+deuda.toFixed(2):'Al dia')+'</span></div>'+detalle+'</div>';
-  }).join('');
+    return '<div class="deudor-card"><div class="deudor-header"><div><div style="font-size:14px;font-weight:600">'+c.nombre+'</div><div style="font-size:11px;color:#888">'+c.telefono+'</div></div><span class="badge '+(deuda>0?'fiado':'pagado')+'">'+(deuda>0?'Debe $'+deuda.toFixed(2):'Al dia')+'</span></div>'+detalle+'</div>';
+  }).join(''):'<div style="color:#888;font-size:13px;padding:8px 0">Sin clientes aun</div>';
 }
 
-function cobrarVenta(ventaId){
+async function cobrarVenta(ventaId){
   var v=ventas.find(function(x){return x.id===ventaId;});
   if(!v)return;
   var forma=confirm('Cobrar $'+v.total.toFixed(2)+'\n\nOK = Efectivo\nCancelar = Transferencia')?'Pagado':'Transferencia';
-  v.pago=forma;
-  renderClientes();
-  renderDashboard();
-  alert('Cobrado como '+forma+'!');
+  await sb.from('ventas').update({pago:forma}).eq('id',ventaId);
+  await cargarVentas();renderClientes();renderDashboard();
+  alert('Cobrado!');
 }
 
-function cobrarTodo(clienteId){
+async function cobrarTodo(clienteId){
   var forma=confirm('Cobrar toda la deuda\n\nOK = Efectivo\nCancelar = Transferencia')?'Pagado':'Transferencia';
-  ventas.filter(function(v){return v.clienteId===clienteId&&v.pago==='Fiado';}).forEach(function(v){v.pago=forma;});
-  renderClientes();
-  renderDashboard();
+  var ids=ventas.filter(function(v){return v.clienteId===clienteId&&v.pago==='Fiado';}).map(function(v){return v.id;});
+  for(var i=0;i<ids.length;i++)await sb.from('ventas').update({pago:forma}).eq('id',ids[i]);
+  await cargarVentas();renderClientes();renderDashboard();
   alert('Toda la deuda cobrada!');
 }
 
-function agregarCliente(){
+async function agregarCliente(){
   var nombre=document.getElementById('c-nombre').value.trim();
   var tel=document.getElementById('c-tel').value.trim();
   if(!nombre){alert('Escribe el nombre');return;}
-  clientes.push({id:nextClienteId++,nombre:nombre,tel:tel});
-  document.getElementById('c-nombre').value='';
-  document.getElementById('c-tel').value='';
-  renderClientes();
-  alert('Cliente guardado!');
+  var r=await sb.from('clientes').insert([{nombre:nombre,telefono:tel}]);
+  if(r.error){alert('Error: '+r.error.message);return;}
+  document.getElementById('c-nombre').value='';document.getElementById('c-tel').value='';
+  await cargarClientes();renderClientes();alert('Cliente guardado!');
 }
 
 function renderCompras(){
   var sel=document.getElementById('cp-producto');
   if(sel)sel.innerHTML='<option value="">-- Elige producto --</option>'+productos.map(function(p){return '<option value="'+p.id+'">'+p.nombre+'</option>';}).join('');
-  document.getElementById('lista-compras').innerHTML=compras.slice().reverse().map(function(c){
+  document.getElementById('lista-compras').innerHTML=compras.length?compras.map(function(c){
     var p=productos.find(function(x){return x.id===c.prodId;});
     return '<div class="row"><div><div style="font-size:13px;font-weight:600">'+(p?p.nombre:'?')+'</div><div style="font-size:11px;color:#888">'+c.fecha+' - '+c.cant+' uds a $'+c.costo.toFixed(2)+'</div></div><div style="font-size:14px;font-weight:600;color:#D85A30">-$'+(c.cant*c.costo).toFixed(2)+'</div></div>';
-  }).join('')||'<div style="color:#888;font-size:13px;padding:8px 0">Sin compras aun</div>';
+  }).join(''):'<div style="color:#888;font-size:13px;padding:8px 0">Sin compras aun</div>';
 }
 
-function registrarCompra(){
+async function registrarCompra(){
   var prodId=parseInt(document.getElementById('cp-producto').value);
   var cant=parseInt(document.getElementById('cp-cant').value);
   var costo=parseFloat(document.getElementById('cp-costo').value);
   var cad=document.getElementById('cp-cad').value;
   if(!prodId||isNaN(cant)||isNaN(costo)){alert('Completa todos los campos');return;}
-  var p=productos.find(function(x){return x.id===prodId;});
-  p.stock+=cant;
-  if(costo)p.costo=costo;
-  if(cad)p.caducidad=cad;
-  compras.push({id:nextCompraId++,fecha:hoy(),prodId:prodId,cant:cant,costo:costo});
+  var p=productos.find(function(x){return x.id===prodId;}),nuevoStock=p.stock+cant;
+  await sb.from('compras').insert([{fecha:hoy(),producto_id:prodId,cantidad:cant,costo:costo,fecha_caducidad:cad||null}]);
+  await sb.from('productos').update({stock:nuevoStock,costo:costo,caducidad:cad||p.caducidad}).eq('id',prodId);
   ['cp-cant','cp-costo','cp-cad'].forEach(function(id){document.getElementById(id).value='';});
-  renderCompras();
-  alert('Entrada registrada! Stock de '+p.nombre+': '+p.stock+' uds');
+  await cargarProductos();await cargarCompras();
+  alert('Entrada registrada! Stock de '+p.nombre+': '+nuevoStock+' uds');
 }
 
-renderDashboard();
-renderInventario();
-renderClientes();
-renderCompras();
+iniciar();
 </script>
 </body>
 </html>
