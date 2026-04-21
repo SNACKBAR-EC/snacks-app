@@ -264,8 +264,24 @@ async function iniciar(){
 async function cargProds(){var r=await sb.from('productos').select('*').order('nombre');if(r.data)productos=r.data;renderProds();popularSelects();}
 async function cargClis(){var r=await sb.from('clientes').select('*').order('nombre');if(r.data)clientes=r.data;}
 async function cargVentas(){
-  var r=await sb.from('ventas').select('*, detalle_venta(*)').order('created_at',{ascending:false});
-  if(r.data)ventas=r.data.map(function(v){return{id:v.id,fecha:v.fecha,clienteId:v.cliente_id,total:v.total,costo:v.costo_total,pago:v.pago,items:(v.detalle_venta||[]).map(function(d){return{prodId:d.producto_id,cant:d.cantidad,precio:d.precio_unitario};})};});
+ var r = await sb.from('ventas').select('*, detalle_venta(*)').order('created_at',{ascending:false});
+  if(r.data){
+    ventas = r.data.map(function(v){
+      return {
+        id: v.id,
+        fecha: v.fecha, // Asegúrate que sea YYYY-MM-DD
+        clienteId: v.cliente_id,
+        total: parseFloat(v.total) || 0, // CRÍTICO: Convertir a número
+        costo: parseFloat(v.costo_total) || 0, // CRÍTICO: Convertir a número
+        pago: v.pago,
+        items: (v.detalle_venta || []).map(function(d){
+          return { prodId: d.producto_id, cant: d.cantidad, precio: d.precio_unitario };
+        })
+      };
+    });
+    // Después de cargar, refrescamos el panel si estamos en él
+    renderDash(); 
+  }
 }
 async function cargCompras(){var r=await sb.from('compras').select('*').order('fecha',{ascending:false});if(r.data)compras=r.data.map(function(c){return{id:c.id,fecha:c.fecha,prodId:c.producto_id,cant:c.cantidad,costo:c.costo};});renderHistCompras();}
 
