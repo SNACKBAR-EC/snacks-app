@@ -86,7 +86,6 @@ body{background:linear-gradient(135deg,#fce4ec 0%,#e8f5e9 40%,#e3f2fd 100%);min-
 .hint{font-size:11px;color:#999;margin-top:4px;line-height:1.4}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#2E7D32;color:#fff;padding:11px 22px;border-radius:22px;font-size:13px;z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .toast.show{opacity:1}
-/* GRÁFICO */
 .chart-wrap{overflow-x:auto;padding-bottom:6px}
 .chart{display:flex;align-items:flex-end;gap:5px;height:130px;min-width:100%}
 .bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1;min-width:32px}
@@ -96,7 +95,6 @@ body{background:linear-gradient(135deg,#fce4ec 0%,#e8f5e9 40%,#e3f2fd 100%);min-
 .bar-amt{font-size:9px;color:#555;font-weight:700}
 .chart-tip{background:linear-gradient(135deg,#2E7D32,#43A047);color:#fff;border-radius:12px;padding:10px 15px;font-size:13px;margin-bottom:10px;text-align:center;display:none;font-weight:500;box-shadow:0 3px 10px rgba(67,160,71,.3)}
 .chart-tip.show{display:block}
-/* TOP PRODUCTOS VERTICAL */
 .top-prods-grid{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
 .top-prod-col{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:70px;cursor:pointer}
 .top-prod-foto{width:56px;height:56px;border-radius:12px;object-fit:cover;border:2px solid #e0e0e0;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
@@ -106,30 +104,25 @@ body{background:linear-gradient(135deg,#fce4ec 0%,#e8f5e9 40%,#e3f2fd 100%);min-
 .top-prod-bar-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,#43A047,#81C784);border-radius:6px 6px 0 0;transition:height .6s}
 .top-prod-nombre{font-size:10px;color:#555;font-weight:600;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
 .top-prod-cant{font-size:11px;font-weight:700;color:#2E7D32}
-/* VENTA CARDS */
 .venta-card{background:rgba(255,255,255,.9);border-radius:14px;border:1px solid rgba(0,0,0,.07);padding:13px;margin-bottom:9px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .vc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px}
 .vc-prods{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
 .vc-prod-chip{display:flex;align-items:center;gap:5px;background:#f5f5f5;border-radius:8px;padding:4px 8px;font-size:11px;color:#444}
 .vc-prod-chip img{width:22px;height:22px;border-radius:5px;object-fit:cover}
 .vc-actions{display:flex;gap:5px;flex-wrap:wrap}
-/* PAGINACIÓN */
 .pag{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
 .pag button{padding:7px 14px;border-radius:10px;border:1.5px solid #ddd;background:#fff;cursor:pointer;font-size:13px;color:#555;font-weight:500}
 .pag button.active{background:linear-gradient(135deg,#43A047,#2E7D32);color:#fff;border-color:#43A047}
 .pag-info{font-size:12px;color:#888}
-/* BUSCADOR */
 .search-box{position:relative;margin-bottom:10px}
 .search-box input{padding:10px 13px 10px 38px;border:1.5px solid #e0e0e0;border-radius:12px;width:100%;font-size:14px;outline:none;background:rgba(255,255,255,.9)}
 .search-box input:focus{border-color:#43A047}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:#bbb}
-/* FILTRO */
 .filtro-box{background:rgba(255,255,255,.85);border-radius:14px;border:1px solid rgba(255,255,255,.7);padding:13px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .filtro-rango{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:8px}
 .filtro-rango input{padding:9px 11px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:13px;background:rgba(255,255,255,.9);color:#222;outline:none;width:100%}
 .fecha-label{font-size:11px;color:#888;margin-bottom:3px;font-weight:500}
 .resumen-fecha{font-size:12px;color:#43A047;font-weight:600;margin-top:8px;text-align:center}
-/* TABLA COMPRAS */
 .tabla-compras{width:100%;border-collapse:collapse;margin-top:4px;font-size:13px}
 .tabla-compras th{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);font-size:11px;color:#2E7D32;font-weight:700;padding:9px 10px;text-align:left;border-bottom:2px solid #A5D6A7}
 .tabla-compras td{padding:10px 10px;border-bottom:1px solid rgba(0,0,0,.05);vertical-align:middle}
@@ -139,7 +132,6 @@ body{background:linear-gradient(135deg,#fce4ec 0%,#e8f5e9 40%,#e3f2fd 100%);min-
 .tabla-compras tr.urgente td{background:linear-gradient(135deg,#FFEBEE,#FFCDD2)!important}
 .tabla-compras tr.ok-row td{background:linear-gradient(135deg,#E8F5E9,#F1F8E9)!important}
 .cant-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:12px}
-/* ALCANCÍA */
 .alcancia-wrap{text-align:center;margin-bottom:16px}
 .cerdo-container{position:relative;display:inline-block;font-size:64px;line-height:1}
 .cerdo-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,#ff6b9d,#ffb3cc);border-radius:0 0 50% 50%;transition:height .8s;overflow:hidden}
@@ -150,7 +142,6 @@ body{background:linear-gradient(135deg,#fce4ec 0%,#e8f5e9 40%,#e3f2fd 100%);min-
 .split-row{display:flex;gap:7px;margin-top:5px;flex-wrap:wrap}
 .split-inv{background:#FFF3E0;border-radius:7px;padding:4px 9px;font-size:11px;color:#E65100;font-weight:700;border:1px solid #FFCC80}
 .split-aho{background:#E8F5E9;border-radius:7px;padding:4px 9px;font-size:11px;color:#2E7D32;font-weight:700;border:1px solid #A5D6A7}
-/* PROV CHIP */
 .prov-chip{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border-radius:8px;padding:3px 9px;font-size:11px;color:#1565C0;font-weight:600;border:1px solid #90CAF9}
 </style>
 </head>
@@ -320,7 +311,7 @@ body{background:linear-gradient(135deg,#fce4ec 0%,#e8f5e9 40%,#e3f2fd 100%);min-
   <div class="card">
     <div class="stitle">📥 Registrar entrada</div>
     <div class="fg"><label>Producto</label><select id="cp-prod"><option value="">-- Elige producto --</option></select></div>
-    <div class="fg"><label>Proveedor</label><select id="cp-prov"><option value="">-- Sin proveedor --</option></select></div>
+    <div class="fg"><label>Proveedor (opcional)</label><select id="cp-prov"><option value="">-- Sin proveedor --</option></select></div>
     <div class="two">
       <div class="fg"><label>Cantidad</label><input id="cp-cant" type="number" placeholder="50"/></div>
       <div class="fg"><label>Costo unitario $</label><input id="cp-cos" type="number" step="0.01" placeholder="0.50"/></div>
@@ -495,9 +486,20 @@ async function cargVentas(){
   var base=r.data||[],r2=await sb.from('detalle_venta').select('*'),dets=r2.data||[];
   ventas=base.map(function(v){return{id:v.id,fecha:v.fecha,clienteId:v.cliente_id,total:parseFloat(v.total)||0,costo:parseFloat(v.costo_total)||0,pago:v.pago,items:dets.filter(function(d){return d.venta_id===v.id;}).map(function(d){return{prodId:d.producto_id,cant:d.cantidad,precio:parseFloat(d.precio_unitario)||0};})};});
 }
+
+// ── FIX: cargCompras ahora lee proveedor_id correctamente ──
 async function cargCompras(){
   var r=await sb.from('compras').select('*').order('fecha',{ascending:false});
-  if(!r.error)compras=(r.data||[]).map(function(c){return{id:c.id,fecha:c.fecha,prodId:c.producto_id,provId:c.proveedor_id,cant:c.cantidad,costo:parseFloat(c.costo)||0};});
+  if(!r.error)compras=(r.data||[]).map(function(c){
+    return{
+      id:c.id,
+      fecha:c.fecha,
+      prodId:c.producto_id,
+      provId:c.proveedor_id||null,   // ← columna que se agrega con el SQL
+      cant:c.cantidad,
+      costo:parseFloat(c.costo)||0
+    };
+  });
   renderHistCompras();
 }
 
@@ -574,7 +576,7 @@ function renderDash(){
   var f=vf();
   var tv=f.reduce(function(a,v){return a+v.total;},0);
   var tc=f.reduce(function(a,v){return a+v.costo;},0);
-  var u=tv-tc,mg=tv>0?Math.round(u/tv*100):0;
+  var u=tv-tc;
   var dd=deudas(),tf=Object.values(dd).reduce(function(a,d){return a+d.total;},0);
   var invActual=productos.reduce(function(a,p){return a+(p.stock||0)*(p.costo||0);},0);
   document.getElementById('d-ventas').textContent='$'+tv.toFixed(2);
@@ -944,17 +946,50 @@ function renderPagCompras(){
 }
 function irPC(n){pagCompra=n;renderPagCompras();}
 
+// ── FIX PRINCIPAL: registrarCompra ahora incluye proveedor_id correctamente ──
 async function registrarCompra(){
-  var pId=parseInt(document.getElementById('cp-prod').value),cant=parseInt(document.getElementById('cp-cant').value),cos=parseFloat(document.getElementById('cp-cos').value),cad=document.getElementById('cp-cad').value,provId=document.getElementById('cp-prov').value;
-  if(!pId||isNaN(cant)||isNaN(cos)){toast('Completa todos los campos',false);return;}
-  var p=productos.find(function(x){return x.id===pId;}),ns=(p.stock||0)+cant;
-  var rc=await sb.from('compras').insert([{fecha:hoyEC(),producto_id:pId,proveedor_id:provId||null,cantidad:cant,costo:cos,fecha_caducidad:cad||null}]);
-  if(rc.error){toast('Error: '+rc.error.message,false);return;}
-  await sb.from('productos').update({stock:ns,costo:cos,caducidad:cad||p.caducidad}).eq('id',pId);
+  var pId=parseInt(document.getElementById('cp-prod').value);
+  var cant=parseInt(document.getElementById('cp-cant').value);
+  var cos=parseFloat(document.getElementById('cp-cos').value);
+  var cad=document.getElementById('cp-cad').value;
+  var provId=document.getElementById('cp-prov').value;
+
+  if(!pId||isNaN(cant)||cant<=0){toast('Selecciona producto y cantidad válida',false);return;}
+  if(isNaN(cos)||cos<=0){toast('Ingresa un costo válido',false);return;}
+
+  var p=productos.find(function(x){return x.id===pId;});
+  if(!p){toast('Producto no encontrado',false);return;}
+
+  var ns=(p.stock||0)+cant;
+
+  // Armar objeto de inserción — proveedor_id solo si existe la columna (ya agregada con el SQL)
+  var insertData={
+    fecha:hoyEC(),
+    producto_id:pId,
+    cantidad:cant,
+    costo:cos
+  };
+  if(provId)insertData.proveedor_id=parseInt(provId);
+  if(cad)insertData.fecha_caducidad=cad;
+
+  var rc=await sb.from('compras').insert([insertData]);
+  if(rc.error){toast('Error al guardar: '+rc.error.message,false);return;}
+
+  // Actualizar stock y costo del producto
+  var updateData={stock:ns,costo:cos};
+  if(cad)updateData.caducidad=cad;
+  await sb.from('productos').update(updateData).eq('id',pId);
+
+  // Limpiar campos
   ['cp-cant','cp-cos','cp-cad'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('cp-prod').value='';
   document.getElementById('cp-prov').value='';
-  await cargProds();await cargCompras();guardarLocal();renderTablaStock();
-  toast('✅ Entrada! Stock '+p.nombre+': '+ns+' uds');
+
+  await cargProds();
+  await cargCompras();
+  guardarLocal();
+  renderTablaStock();
+  toast('✅ Entrada registrada! '+p.nombre+': '+ns+' uds en stock');
 }
 
 function abrirEditCompra(id){
